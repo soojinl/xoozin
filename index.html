@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="theme-toggle">Toggle Theme</button>
+    <div class="top-bar">
+        <button id="theme-toggle">Toggle Theme</button>
+        <div class="lang-switcher">
+            <button id="lang-ko">한국어</button>
+            <button id="lang-en">English</button>
+        </div>
+    </div>
     <div class="container">
-        <h1>오늘 저녁 뭐 먹지?</h1>
+        <h1 id="main-heading">오늘 저녁 뭐 먹지?</h1>
         <div id="menu-display" class="menu-display">
             <!-- Recommended menu will be displayed here -->
         </div>
