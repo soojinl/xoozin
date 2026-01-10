@@ -1,24 +1,17 @@
-const numbersContainer = document.getElementById('numbers');
-const generateBtn = document.getElementById('generate-btn');
+const menuDisplay = document.getElementById('menu-display');
+const recommendBtn = document.getElementById('recommend-btn');
 const themeToggle = document.getElementById('theme-toggle');
 
-function generateNumbers() {
-    const numbers = new Set();
-    while (numbers.size < 6) {
-        const randomNumber = Math.floor(Math.random() * 45) + 1;
-        numbers.add(randomNumber);
-    }
-    return Array.from(numbers);
-}
+const dinnerMenus = [
+    '치킨', '피자', '삼겹살', '된장찌개', '김치찌개',
+    '족발', '보쌈', '파스타', '초밥', '떡볶이',
+    '제육볶음', '부대찌개', '곱창', '쌀국수', '카레'
+];
 
-function displayNumbers(numbers) {
-    numbersContainer.innerHTML = '';
-    for (const number of numbers) {
-        const numberDiv = document.createElement('div');
-        numberDiv.classList.add('number');
-        numberDiv.textContent = number;
-        numbersContainer.appendChild(numberDiv);
-    }
+function recommendMenu() {
+    const randomIndex = Math.floor(Math.random() * dinnerMenus.length);
+    const selectedMenu = dinnerMenus[randomIndex];
+    menuDisplay.textContent = selectedMenu;
 }
 
 function applyTheme(theme) {
@@ -35,11 +28,7 @@ function toggleTheme() {
     applyTheme(currentTheme);
 }
 
-generateBtn.addEventListener('click', () => {
-    const generatedNumbers = generateNumbers();
-    displayNumbers(generatedNumbers);
-});
-
+recommendBtn.addEventListener('click', recommendMenu);
 themeToggle.addEventListener('click', toggleTheme);
 
 // On load, check for saved theme

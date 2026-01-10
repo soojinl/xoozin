@@ -46,27 +46,17 @@ body.dark-mode {
     background-color: var(--container-bg);
 }
 
-.numbers-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.number {
+.menu-display {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--number-bg);
-    border: 2px solid var(--number-border);
-    margin: 0 5px;
-    font-size: 24px;
+    margin-bottom: 20px;
+    min-height: 60px;
+    font-size: 32px;
     font-weight: bold;
 }
 
-#generate-btn {
+#recommend-btn {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
