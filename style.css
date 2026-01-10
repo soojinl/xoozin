@@ -1,14 +1,49 @@
+:root {
+    --bg-color: #f0f0f0;
+    --text-color: #333;
+    --container-bg: #f0f0f0;
+    --number-bg: #fff;
+    --number-border: #ccc;
+    --button-bg: #fff;
+    --button-text: #333;
+}
+
 body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    --bg-color: #333;
+    --text-color: #f0f0f0;
+    --container-bg: #333;
+    --number-bg: #555;
+    --number-border: #888;
+    --button-bg: #555;
+    --button-text: #f0f0f0;
+}
+
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--number-border);
+    border-radius: 5px;
 }
 
 .container {
     text-align: center;
+    background-color: var(--container-bg);
 }
 
 .numbers-container {
@@ -24,8 +59,8 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #fff;
-    border: 2px solid #ccc;
+    background-color: var(--number-bg);
+    border: 2px solid var(--number-border);
     margin: 0 5px;
     font-size: 24px;
     font-weight: bold;
@@ -35,4 +70,7 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--number-border);
 }
