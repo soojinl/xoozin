@@ -1,5 +1,6 @@
 // DOM Elements
-const menuDisplay = document.getElementById('menu-display');
+const menuImage = document.getElementById('menu-image');
+const menuName = document.getElementById('menu-name');
 const recommendBtn = document.getElementById('recommend-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const langKoBtn = document.getElementById('lang-ko');
@@ -13,9 +14,11 @@ const translations = {
         recommendButton: '메뉴 추천받기',
         placeholder: '추천 메뉴가 여기에 표시됩니다',
         menus: [
-            '치킨', '피자', '삼겹살', '된장찌개', '김치찌개',
-            '족발', '보쌈', '파스타', '초밥', '떡볶이',
-            '제육볶음', '부대찌개', '곱창', '쌀국수', '카레'
+            { name: '치킨', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=치킨' },
+            { name: '피자', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=피자' },
+            { name: '삼겹살', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=삼겹살' },
+            { name: '된장찌개', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=된장찌개' },
+            { name: '김치찌개', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=김치찌개' },
         ]
     },
     en: {
@@ -23,9 +26,11 @@ const translations = {
         recommendButton: 'Get Recommendation',
         placeholder: 'Recommended menu will be shown here',
         menus: [
-            'Chicken', 'Pizza', 'Pork Belly', 'Soybean Paste Stew', 'Kimchi Stew',
-            'Pigs Feet', 'Boiled Pork Wraps', 'Pasta', 'Sushi', 'Tteokbokki',
-            'Stir-fried Pork', 'Sausage Stew', 'Grilled Intestines', 'Pho', 'Curry'
+            { name: 'Chicken', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=Chicken' },
+            { name: 'Pizza', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=Pizza' },
+            { name: 'Pork Belly', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=Pork+Belly' },
+            { name: 'Soybean Stew', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=Soybean+Stew' },
+            { name: 'Kimchi Stew', imageUrl: 'https://placehold.co/400x300/EEE/31343C?text=Kimchi+Stew' },
         ]
     }
 };
@@ -37,8 +42,8 @@ function setLanguage(lang) {
     localStorage.setItem('language', lang);
     mainHeading.textContent = translations[lang].heading;
     recommendBtn.textContent = translations[lang].recommendButton;
-    if (!menuDisplay.textContent) {
-        menuDisplay.textContent = translations[lang].placeholder;
+    if (menuImage.style.display === 'none') {
+        menuName.textContent = translations[lang].placeholder;
     }
 }
 
@@ -46,7 +51,11 @@ function recommendMenu() {
     const menus = translations[currentLanguage].menus;
     const randomIndex = Math.floor(Math.random() * menus.length);
     const selectedMenu = menus[randomIndex];
-    menuDisplay.textContent = selectedMenu;
+    
+    menuImage.src = selectedMenu.imageUrl;
+    menuImage.alt = selectedMenu.name;
+    menuImage.style.display = 'block';
+    menuName.textContent = selectedMenu.name;
 }
 
 function applyTheme(theme) {
