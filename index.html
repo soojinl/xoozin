@@ -31,6 +31,23 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "v2v3oxtgpb");
     </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "로또 번호 생성기",
+      "alternateName": "Lotto Number Generator",
+      "description": "버튼 클릭 한 번으로 로또 번호 5세트를 무료로 받아보세요. 이 도구는 행운의 번호를 생성해 드립니다.",
+      "operatingSystem": "Web",
+      "applicationCategory": "Entertainment",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+    </script>
+
     <style>
         body { font-family: Arial, Helvetica, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); margin: 0; padding: 0; color: #fff; text-align: center; }
         .container { max-width: 600px; margin: 100px auto; background: rgba(0, 0, 0, 0.25); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
@@ -39,6 +56,8 @@
         .set-title { margin-bottom: 10px; font-size: 16px; opacity: 0.9; }
         .ball { display: inline-block; width: 44px; height: 44px; line-height: 44px; margin: 4px; border-radius: 50%; background-color: #fff; color: #333; font-weight: bold; }
         footer { margin-top: 30px; font-size: 13px; opacity: 0.8; }
+        #explanation { margin-top: 40px; padding: 20px; background: rgba(0,0,0,0.1); border-radius: 8px; text-align: left; }
+        #explanation h2 { margin-top: 0; }
     </style>
 </head>
 <body>
@@ -52,6 +71,11 @@
     <main>
         <button id="generate-button" onclick="generateLottoSets()">로또 번호 받기</button>
         <div id="lottoContainer"></div>
+
+        <section id="explanation">
+            <h2 id="explanation-heading">어떻게 작동하나요?</h2>
+            <p id="explanation-text">저희 로또 번호 생성기는 1부터 45까지의 숫자 중에서 무작위로 6개의 숫자를 선택하여 한 세트를 만듭니다. 이 과정은 통계적 분석이나 특정 당첨 패턴을 따르지 않는 순수한 무작위 방식입니다. 생성된 번호는 오직 재미와 참고용으로만 사용해주세요.</p>
+        </section>
     </main>
 
     <footer>
@@ -65,27 +89,30 @@
             "main-heading": "🎉 로또 번호 추천기",
             "sub-heading": "버튼을 누르면 로또 번호 5세트를 추천해드립니다",
             "generate-button": "로또 번호 받기",
-            "footer-text": "※ 재미로만 참고하세요 😊",
-            "set-title": "로또 {i}번 세트"
+            "set-title": "로또 {i}번 세트",
+            "explanation-heading": "어떻게 작동하나요?",
+            "explanation-text": "저희 로또 번호 생성기는 1부터 45까지의 숫자 중에서 무작위로 6개의 숫자를 선택하여 한 세트를 만듭니다. 이 과정은 통계적 분석이나 특정 당첨 패턴을 따르지 않는 순수한 무작위 방식입니다. 생성된 번호는 오직 재미와 참고용으로만 사용해주세요.",
+            "footer-text": "※ 재미로만 참고하세요 😊"
         },
         en: {
             "main-heading": "🎉 Lotto Number Generator",
             "sub-heading": "Press the button to get 5 sets of lotto numbers",
             "generate-button": "Get Lotto Numbers",
-            "footer-text": "※ For entertainment purposes only 😊",
-            "set-title": "Lotto Set #{i}"
+            "set-title": "Lotto Set #{i}",
+            "explanation-heading": "How does it work?",
+            "explanation-text": "Our lotto number generator creates a set by randomly selecting 6 numbers from 1 to 45. This process is purely random and does not follow any statistical analysis or specific winning patterns. Please use the generated numbers for fun and reference only.",
+            "footer-text": "※ For entertainment purposes only 😊"
         }
     };
 
     function setLanguage(lang) {
         document.documentElement.lang = lang;
-        const elements = Object.keys(translations[lang]);
-        elements.forEach(id => {
+        for (const id in translations[lang]) {
             const element = document.getElementById(id);
-            if (element) {
+            if (element && !id.includes('{i}')) { // Avoid trying to find elements for dynamic parts
                 element.textContent = translations[lang][id];
             }
-        });
+        }
     }
 
     function detectLanguage() {
@@ -94,10 +121,7 @@
             return urlLang;
         }
         const browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang.startsWith('ko')) {
-            return 'ko';
-        }
-        return 'en';
+        return browserLang.startsWith('ko') ? 'ko' : 'en';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
