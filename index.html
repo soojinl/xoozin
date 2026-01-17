@@ -15,6 +15,9 @@
     <link rel="alternate" hreflang="ko" href="https://xoozin.pages.dev/index.html?lang=ko" />
     <link rel="alternate" hreflang="en" href="https://xoozin.pages.dev/index.html?lang=en" />
     <link rel="alternate" hreflang="x-default" href="https://xoozin.pages.dev/index.html" />
+    
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1QVZSYK5GX"></script>
@@ -58,6 +61,23 @@
         footer { margin-top: 30px; font-size: 13px; opacity: 0.8; }
         #explanation { margin-top: 40px; padding: 20px; background: rgba(0,0,0,0.1); border-radius: 8px; text-align: left; }
         #explanation h2 { margin-top: 0; }
+        
+        /* SNS Share Buttons */
+        .share-buttons { margin-top: 40px; }
+        .share-buttons p { font-size: 16px; margin-bottom: 15px; }
+        .share-btn {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px;
+            transition: opacity 0.3s;
+        }
+        .share-btn:hover { opacity: 0.8; }
+        .share-btn.copy-link { background: #6c757d; cursor: pointer; border: none; font-family: Arial, Helvetica, sans-serif;}
+
     </style>
 </head>
 <body>
@@ -71,6 +91,15 @@
     <main>
         <button id="generate-button" onclick="generateLottoSets()">로또 번호 받기</button>
         <div id="lottoContainer"></div>
+
+        <!-- SNS Share Section -->
+        <div class="share-buttons">
+            <p id="share-text">이 행운을 친구에게도 공유해보세요!</p>
+            <a href="#" class="share-btn" onclick="shareOnFacebook()" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn" onclick="shareOnTwitter()" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn" onclick="shareOnThreads()" title="Share on Threads"><i class="fab fa-threads"></i></a>
+            <button class="share-btn copy-link" onclick="copyLink()" title="Copy Link"><i class="fas fa-link"></i></button>
+        </div>
 
         <section id="explanation">
             <h2 id="explanation-heading">어떻게 작동하나요?</h2>
@@ -90,6 +119,7 @@
             "sub-heading": "버튼을 누르면 로또 번호 5세트를 추천해드립니다",
             "generate-button": "로또 번호 받기",
             "set-title": "로또 {i}번 세트",
+            "share-text": "이 행운을 친구에게도 공유해보세요!",
             "explanation-heading": "어떻게 작동하나요?",
             "explanation-text": "저희 로또 번호 생성기는 1부터 45까지의 숫자 중에서 무작위로 6개의 숫자를 선택하여 한 세트를 만듭니다. 이 과정은 통계적 분석이나 특정 당첨 패턴을 따르지 않는 순수한 무작위 방식입니다. 생성된 번호는 오직 재미와 참고용으로만 사용해주세요.",
             "footer-text": "※ 재미로만 참고하세요 😊"
@@ -99,6 +129,7 @@
             "sub-heading": "Press the button to get 5 sets of lotto numbers",
             "generate-button": "Get Lotto Numbers",
             "set-title": "Lotto Set #{i}",
+            "share-text": "Share this luck with your friends!",
             "explanation-heading": "How does it work?",
             "explanation-text": "Our lotto number generator creates a set by randomly selecting 6 numbers from 1 to 45. This process is purely random and does not follow any statistical analysis or specific winning patterns. Please use the generated numbers for fun and reference only.",
             "footer-text": "※ For entertainment purposes only 😊"
@@ -109,7 +140,7 @@
         document.documentElement.lang = lang;
         for (const id in translations[lang]) {
             const element = document.getElementById(id);
-            if (element && !id.includes('{i}')) { // Avoid trying to find elements for dynamic parts
+            if (element && !id.includes('{i}')) { 
                 element.textContent = translations[lang][id];
             }
         }
@@ -166,6 +197,33 @@
             container.appendChild(setDiv);
         }
     }
+
+    // --- SNS Share Functions ---
+    const shareUrl = 'https://xoozin.pages.dev/';
+    const shareTitle = '로또 번호 생성기 - 행운의 번호를 받아보세요!';
+
+    function shareOnFacebook() {
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+    }
+
+    function shareOnTwitter() {
+        window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(shareTitle), '_blank');
+    }
+    
+    function shareOnThreads() {
+        const threadsUrl = `https://www.threads.net/intent/post?text=${'''${encodeURIComponent(shareTitle + " " + shareUrl)}'''}`;
+        window.open(threadsUrl, '_blank');
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            alert('링크가 복사되었습니다!');
+        }, (err) => {
+            console.error('Could not copy text: ', err);
+            alert('링크 복사에 실패했습니다.');
+        });
+    }
+
 </script>
 
 </body>
