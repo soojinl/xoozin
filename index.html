@@ -1,27 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinner Menu Recommendation</title>
-    <link rel="stylesheet" href="style.css">
+    <title>로또 번호 생성기 - 무료 로또 번호 추천</title>
+    <meta name="description" content="버튼 클릭 한 번으로 로또 번호 5세트를 무료로 받아보세요. AI 기반 로또 번호 추천기가 행운의 번호를 생성해드립니다.">
+    <meta name="keywords" content="로또, 로또번호, 로또번호생성기, 로또번호추천, 로또AI, AI로또, 무료로또">
+    <meta property="og:title" content="로또 번호 생성기">
+    <meta property="og:description" content="AI가 추천하는 행운의 로또 번호를 받아보세요.">
+    <meta property="og:image" content="/favicon.svg">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1QVZSYK5GX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1QVZSYK5GX');
+</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "v2v3oxtgpb");
+</script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            background-color: #ffcc00;
+            color: #333;
+            cursor: pointer;
+        }
+        .set {
+            margin-top: 25px;
+        }
+        .set-title {
+            margin-bottom: 10px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .ball {
+            display: inline-block;
+            width: 44px;
+            height: 44px;
+            line-height: 44px;
+            margin: 4px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #333;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
-    <div class="top-bar">
-        <button id="theme-toggle">Toggle Theme</button>
-        <div class="lang-switcher">
-            <button id="lang-ko">한국어</button>
-            <button id="lang-en">English</button>
-        </div>
-    </div>
-    <div class="container">
-        <h1 id="main-heading">오늘 저녁 뭐 먹지?</h1>
-        <div id="menu-display" class="menu-display">
-            <img id="menu-image" src="" alt="Recommended Menu Image" style="display: none;"/>
-            <div id="menu-name"></div>
-        </div>
-        <button id="recommend-btn">메뉴 추천받기</button>
-    </div>
-    <script src="main.js"></script>
+
+<div class="container">
+    <header>
+        <h1>🎉 로또 번호 추천기</h1>
+        <p>버튼을 누르면 로또 번호 5세트를 추천해드립니다</p>
+    </header>
+
+    <main>
+        <button onclick="generateLottoSets()">로또 번호 받기</button>
+
+        <div id="lottoContainer"></div>
+    </main>
+
+    <footer>
+        <p>※ 재미로만 참고하세요 😊</p>
+    </footer>
+</div>
+
+<script>
+    function generateLotto() {
+        const numbers = [];
+
+        while (numbers.length < 6) {
+            const num = Math.floor(Math.random() * 45) + 1;
+            if (!numbers.includes(num)) {
+                numbers.push(num);
+            }
+        }
+
+        return numbers.sort((a, b) => a - b);
+    }
+
+    function generateLottoSets() {
+        const container = document.getElementById("lottoContainer");
+        container.innerHTML = "";
+
+        for (let i = 1; i <= 5; i++) {
+            const lottoNumbers = generateLotto();
+
+            const setDiv = document.createElement("div");
+            setDiv.className = "set";
+
+            const title = document.createElement("div");
+            title.className = "set-title";
+            title.textContent = `로또 ${i}번 세트`;
+
+            setDiv.appendChild(title);
+
+            lottoNumbers.forEach(num => {
+                const span = document.createElement("span");
+                span.className = "ball";
+                span.textContent = num;
+                setDiv.appendChild(span);
+            });
+
+            container.appendChild(setDiv);
+        }
+    }
+</script>
+
 </body>
-</html>ㅈ
+</html>
